@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Заявки на оплату</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/photoswipe/photoswipe.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/photoswipe/default-skin/default-skin.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- font - fontawesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.min.css' %}">
+</head>
+<header class="site__header d-lg-block d-none">
+    <div class="site-header">
+        <div class="site-header__topbar topbar">
+            <div class="topbar__container container">
+                <div class="topbar__row">
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="track-order.html">Заказы:</a>
+                    </div>
+                    <div class="topbar__spring"></div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                Профиль:
+                                <svg width="7px" height="5px">
+                                    <use xlink:href="{% static 'images/sprite.svg#arrow-rounded-down-7x5' %}"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="page-header__title text-center">
+                <h1>Список заявок на оплату:</h1>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div class="block">
+<div class="container">
+    <table class="wishlist">
+        <thead class="wishlist__head">
+            <tr class="wishlist__row">
+                <th class="wishlist__column wishlist__column--ID">ID заявки</th>
+                <th class="wishlist__column wishlist__column--product">Сумма</th>
+                <th class="wishlist__column wishlist__column--stock">Реквизиты</th>
+                <th class="wishlist__column wishlist__column--price">Статус</th>
+            </tr>
+        </thead>
+        <tbody class="wishlist__body">
+        {% for payment in payment_list %}
+            <tr class="wishlist__row">
+                <td class="wishlist__column wishlist__column--ID">{{ payment.id }}</td>
+                <td class="wishlist__column wishlist__column--product">{{ payment.amount }}</td>
+                <td class="wishlist__column wishlist__column--stock">{{ payment.requisites }}</td>
+                <td class="wishlist__column wishlist__column--price" style="color: 
+                    {% if payment.status == 'paid' %} green;
+                    {% elif payment.status == 'pending' %} black;
+                    {% else %} red; {% endif %}; 
+                    {% if payment.status == 'paid' %} background: lightgreen;
+                    {% elif payment.status == 'pending' %} background: lightyellow;
+                    {% else %} background: lightcoral; {% endif %} ">{{ payment.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>
